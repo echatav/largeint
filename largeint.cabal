@@ -1,0 +1,44 @@
+name:                largeint
+version:             1.0.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/echatav/largeint#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Eitan Chatav
+maintainer:          eitan@morphism.tech
+copyright:           2017 Eitan Chatav
+category:            Web
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Data.LargeInt
+  build-depends:       base >= 4.7 && < 5,
+                       binary,
+                       largeword >= 1.2.5
+  default-language:    Haskell2010
+  ghc-options:         -Wall -Werror
+
+test-suite largeint-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base >= 4.0 && < 5,
+                       binary,
+                       bytestring,
+                       test-framework >= 0.3.3 && < 0.9,
+                       test-framework-quickcheck2 >= 0.2.9 && < 0.4,
+                       test-framework-hunit >= 0.2.6 && < 0.4,
+                       QuickCheck >= 2.4.0.1,
+                       HUnit >= 1.2.2.3,
+                       largeint,
+                       largeword
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/echatav/largeint
