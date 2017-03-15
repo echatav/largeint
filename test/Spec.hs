@@ -24,8 +24,8 @@ import qualified Data.ByteString.Lazy as LZ
 instance (Arbitrary a, Arbitrary b) => Arbitrary (LargeKey a b) where
    arbitrary = liftM2 LargeKey arbitrary arbitrary
 
-instance (Arbitrary a) => Arbitrary (TwosComplement a) where
-  arbitrary = fmap TwosComplement arbitrary
+instance (Arbitrary a) => Arbitrary (Two'sComplement a) where
+  arbitrary = fmap Two'sComplement arbitrary
 
 pShiftRightShiftLeft :: Int128 -> Bool
 pShiftRightShiftLeft x =
@@ -41,7 +41,7 @@ pQuotRem x = rx == fromInteger ry
     (_qx, rx) = quotRem x 16
     (_qy, ry) = quotRem ((fromIntegral x) :: Integer) 16
 
-encodeDecode :: (Binary a, Eq a) => TwosComplement a -> Bool
+encodeDecode :: (Binary a, Eq a) => Two'sComplement a -> Bool
 encodeDecode int = decode encoded == int
   where
     encoded = encode int
@@ -75,7 +75,7 @@ pRepeatedShift160 n =
   (((iterate (`shift` 8) (1::Int160))!!n) == shift (1::Int160) (n*8))
 
 u2 :: Assertion
-u2 = (2 :: TwosComplement (LargeKey Word256 Word128)) ^ 254 @?=
+u2 = (2 :: Two'sComplement (LargeKey Word256 Word128)) ^ 254 @?=
      (fromInteger (2 :: Integer) ^ 254)
 
 u3 :: Assertion
